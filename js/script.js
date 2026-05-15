@@ -5,21 +5,23 @@
 (function () {
     'use strict';
 
-    /* ---------- Page Loader ---------- */
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('pageLoader');
-        if (loader) {
-            setTimeout(() => loader.classList.add('hide'), 400);
-        }
-
+    /* ---------- AOS — init early so elements don't flash off-screen ---------- */
+    document.addEventListener('DOMContentLoaded', () => {
         if (typeof AOS !== 'undefined') {
             AOS.init({
                 duration: 800,
                 easing: 'ease-out-cubic',
                 once: true,
                 offset: 80,
-                disable: window.innerWidth < 600 ? false : false
             });
+        }
+    });
+
+    /* ---------- Page Loader ---------- */
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('pageLoader');
+        if (loader) {
+            setTimeout(() => loader.classList.add('hide'), 400);
         }
 
         animateCounters();

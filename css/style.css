@@ -55,6 +55,7 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--nav-h);
     -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -1235,7 +1236,7 @@ input, textarea, select { font-family: inherit; }
 
     .nav-menu {
         position: fixed;
-        top: 0; right: -100%;
+        top: 0; right: 0;
         width: 85%; max-width: 340px;
         height: 100vh;
         background: #fff;
@@ -1243,10 +1244,12 @@ input, textarea, select { font-family: inherit; }
         padding: 100px 30px 30px;
         gap: 8px;
         box-shadow: -10px 0 40px rgba(0,0,0,0.12);
-        transition: right 0.4s ease;
+        transition: transform 0.4s ease;
         align-items: stretch;
+        transform: translateX(110%);
+        z-index: 999;
     }
-    .nav-menu.active { right: 0; }
+    .nav-menu.active { transform: translateX(0); }
     .nav-link {
         font-size: 16px;
         padding: 14px 18px;
@@ -1296,4 +1299,14 @@ input, textarea, select { font-family: inherit; }
     .hero-title { font-size: 30px; }
     .container { padding: 0 18px; }
     .section-header { margin-bottom: 50px; }
+}
+
+/* Prevent AOS horizontal transforms from causing overflow before init */
+[data-aos^="fade"][data-aos$="right"],
+[data-aos^="fade"][data-aos$="left"],
+[data-aos="zoom-in-right"],
+[data-aos="zoom-in-left"],
+[data-aos="slide-right"],
+[data-aos="slide-left"] {
+    overflow: hidden;
 }
